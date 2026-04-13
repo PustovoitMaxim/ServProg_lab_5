@@ -1,0 +1,238 @@
+/* wwwroot/css/site.css */
+:root {
+    --primary-color: #4a90e2;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* Card styles */
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+
+/* Post content */
+.post-content {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Hashtag links */
+.hashtag-link {
+    color: #4a90e2;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.hashtag-link:hover {
+    text-decoration: underline;
+    color: #2c5aa0;
+}
+
+/* Media styling */
+.post-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.post-image:hover {
+    opacity: 0.95;
+}
+
+.post-video {
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+/* Profile header */
+.profile-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    padding: 2rem;
+    color: white;
+    margin-bottom: 2rem;
+}
+
+.profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid white;
+    object-fit: cover;
+}
+
+/* Interaction buttons */
+.interaction-btn {
+    background: none;
+    border: none;
+    color: #6c757d;
+    transition: color 0.2s;
+    cursor: pointer;
+}
+
+.interaction-btn:hover {
+    color: #4a90e2;
+}
+
+.interaction-count {
+    margin-left: 0.25rem;
+    font-size: 0.9rem;
+}
+
+/* Trending tags sidebar */
+.trending-tag {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e9ecef;
+    transition: background-color 0.2s;
+}
+
+.trending-tag:hover {
+    background-color: #f8f9fa;
+}
+
+.trending-tag-name {
+    font-weight: 500;
+    color: #4a90e2;
+    text-decoration: none;
+}
+
+.trending-tag-count {
+    background-color: #e9ecef;
+    padding: 0.25rem 0.5rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    color: #6c757d;
+}
+
+/* Event badge */
+.event-badge {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.post-card {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .profile-header {
+        padding: 1rem;
+    }
+    
+    .profile-avatar {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .card-body {
+        padding: 1rem;
+    }
+}
+
+/* Loading spinner */
+.spinner {
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #4a90e2;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+/* Стили для хэштегов */
+.hashtag-link {
+    color: #0d6efd;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.hashtag-link:hover {
+    color: #0a58ca;
+    text-decoration: underline;
+    background-color: rgba(13, 110, 253, 0.1);
+    border-radius: 4px;
+}
+
+/* Tag cloud */
+.tag-cloud {
+    line-height: 1.8;
+}
+
+.tag-cloud a {
+    color: #6c757d;
+    transition: all 0.2s ease;
+}
+
+.tag-cloud a:hover {
+    color: #0d6efd;
+    transform: scale(1.05);
+}
+
+/* Trending tags animation */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.trending-badge {
+    animation: pulse 2s infinite;
+}

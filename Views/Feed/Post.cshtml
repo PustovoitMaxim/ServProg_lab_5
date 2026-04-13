@@ -1,0 +1,129 @@
+@using SocialApp.Helpers
+@model SocialApp.Models.PostViewModel
+@{
+    ViewData["Title"] = "Post";
+    var replies = ViewBag.Replies as List<SocialApp.Models.Post>;
+    var comments = ViewBag.Comments as List<SocialApp.Models.Interaction>;
+    var trendingTags = ViewBag.TrendingTags as List<SocialApp.Models.TrendingTag>;
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-2">
+                        <img src="@(Model.User.avatar_url ?? "/images/default-avatar.png")" 
+                             class="rounded-circle me-2" width="40" height="40" alt="avatar">
+                        <div>
+                            <a href="/profile/@Model.User.username" class="fw-bold text-decoration-none">
+                                @Model.User.display_name
+                            </a>
+                            <small class="text-muted d-block">@@@Model.User.username</small>
+                        </div>
+                        <small class="text-muted ms-auto">@Model.Post.created_at.ToString("MMM dd, yyyy • h:mm tt")</small>
+                    </div>
+                    
+                    <p class="card-text fs-5">@Html.Raw(HashtagHelper.ConvertHashtagsToLinks(Model.Post.content))</p>
+                    
+                    @if (Model.Post.post_type != "text" && !string.IsNullOrEmpty(Model.Post.media_url))
+                    {
+                        <div class="mt-3">
+                            @if (Model.Post.post_type == "image")
+                            {
+                                <img src="@Model.Post.media_url" class="img-fluid rounded" alt="@Model.Post.alt_text">
+                            }
+                            else if (Model.Post.post_type == "video")
+                            {
+                                <video controls class="w-100 rounded">
+                                    <source src="@Model.Post.media_url" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            }
+                        </div>
+                    }
+                    
+                    @if (Model.Event != null)
+                    {
+                        <div class="alert alert-info mt-3">
+                            <h5>📅 Event Details</h5>
+                            <strong>Time:</strong> @Model.Event.event_time.ToString("MMMM dd, yyyy • h:mm tt")<br>
+                            <strong>Location:</strong> @Model.Event.location<br>
+                            @if (Model.Event.host_org != null)
+                            {
+                                <strong>Host:</strong> @Model.Event.host_org<br>
+                            }
+                            <strong>RSVP Count:</strong> @Model.RsvpCount / @(Model.Event.max_capacity?.ToString() ?? "∞")
+                        </div>
+                    }
+                    
+                    <div class="mt-4 pt-2 border-top">
+                        <span class="me-4">❤️ @Model.LikeCount Likes</span>
+                        <span class="me-4">💬 @Model.CommentCount Comments</span>
+                        <span class="me-4">🔄 @Model.ReribbCount Reribbs</span>
+                    </div>
+                </div>
+            </div>
+            
+            @if (comments != null && comments.Any())
+            {
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Comments (@comments.Count)</h5>
+                    </div>
+                    <div class="card-body">
+                        @foreach (var comment in comments)
+                        {
+                            <div class="mb-3">
+                                <div class="d-flex align-items-start">
+                                    <img src="@(comment.User.avatar_url ?? "/images/default-avatar.png")" 
+                                         class="rounded-circle me-2" width="32" height="32" alt="avatar">
+                                    <div>
+                                        <a href="/profile/@comment.User.username" class="fw-bold text-decoration-none">
+                                            @comment.User.display_name
+                                        </a>
+                                        <small class="text-muted">@@@comment.User.username</small>
+                                        <p class="mt-1 mb-0">@comment.content</p>
+                                        <small class="text-muted">@comment.created_at.ToString("MMM dd, yyyy • h:mm tt")</small>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+            
+            @if (replies != null && replies.Any())
+            {
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Replies (@replies.Count)</h5>
+                    </div>
+                    <div class="card-body">
+                        @foreach (var reply in replies)
+                        {
+                            <div class="mb-3">
+                                <div class="d-flex align-items-start">
+                                    <img src="@(reply.User.avatar_url ?? "/images/default-avatar.png")" 
+                                         class="rounded-circle me-2" width="32" height="32" alt="avatar">
+                                    <div>
+                                        <a href="/profile/@reply.User.username" class="fw-bold text-decoration-none">
+                                            @reply.User.display_name
+                                        </a>
+                                        <small class="text-muted">@@@reply.User.username</small>
+                                        <p class="mt-1 mb-0">@reply.content</p>
+                                        <small class="text-muted">@reply.created_at.ToString("MMM dd, yyyy • h:mm tt")</small>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+        
+        <div class="col-md-4">
+            @await Html.PartialAsync("_TrendingTags", trendingTags)
+        </div>
+    </div>
+</div>

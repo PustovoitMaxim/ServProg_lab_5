@@ -1,0 +1,8 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'>
+  <rect width='800' height='600' fill='#87CEEB'/>
+  <rect x='0' y='400' width='800' height='200' fill='#8BC34A'/>
+  <circle cx='400' cy='300' r='80' fill='#FFC107'/>
+  <circle cx='200' cy='250' r='40' fill='#4CAF50'/>
+  <circle cx='600' cy='280' r='50' fill='#388E3C'/>
+  <text x='400' y='550' text-anchor='middle' fill='white' font-size='24' font-family='Arial'>🌳 Природа 🌳</text>
+</svg>

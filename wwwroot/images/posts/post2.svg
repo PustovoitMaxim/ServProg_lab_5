@@ -1,0 +1,7 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'>
+  <rect width='800' height='600' fill='#4FC3F7'/>
+  <polygon points='400,100 150,450 650,450' fill='#8BC34A'/>
+  <polygon points='400,150 250,400 550,400' fill='#689F38'/>
+  <rect x='0' y='450' width='800' height='150' fill='#388E3C'/>
+  <text x='400' y='550' text-anchor='middle' fill='white' font-size='24' font-family='Arial'>⛰️ Горы ⛰️</text>
+</svg>

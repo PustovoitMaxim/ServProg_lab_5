@@ -1,0 +1,90 @@
+@using SocialApp.Helpers
+@model List<SocialApp.Models.PostViewModel>
+@{
+    ViewData["Title"] = $"#{ViewBag.CurrentTag} - Ponds";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card mb-4 border-primary">
+                <div class="card-body">
+                    <h1 class="display-4">
+                        <span class="badge bg-primary fs-2">#@ViewBag.CurrentTag</span>
+                    </h1>
+                    <p class="lead">📊 Найдено постов: <strong>@ViewBag.PostCount</strong></p>
+                </div>
+            </div>
+
+            @if (ViewBag.ErrorMessage != null)
+            {
+                <div class="alert alert-warning">
+                    <i class="bi bi-exclamation-triangle"></i> @ViewBag.ErrorMessage
+                </div>
+            }
+
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var post in Model)
+                {
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-2">
+                                @if (post.User?.avatar_url != null)
+                                {
+                                    <img src="@post.User.avatar_url" class="rounded-circle me-2" width="40" height="40">
+                                }
+                                else
+                                {
+                                    <div class="rounded-circle me-2 bg-secondary d-flex align-items-center justify-content-center" style="width:40px;height:40px;">
+                                        <span class="text-white">?</span>
+                                    </div>
+                                }
+                                <div>
+                                    <a href="/profile/@post.User?.username" class="fw-bold text-decoration-none">
+                                        @post.User?.display_name
+                                    </a>
+                                    <small class="text-muted d-block">@@@post.User?.username</small>
+                                </div>
+                                <small class="text-muted ms-auto">@post.Post?.created_at.ToString("MMM dd, yyyy • h:mm tt")</small>
+                            </div>
+                            
+                            <a href="/feed/post/@post.Post?.post_id" class="text-decoration-none text-dark">
+                                <p class="card-text">@Html.Raw(HashtagHelper.ConvertHashtagsToLinks(post.Post?.content ?? ""))</p>
+                                
+                                @if (post.Post?.post_type == "image" && !string.IsNullOrEmpty(post.Post?.media_url))
+                                {
+                                    <img src="@post.Post.media_url" class="img-fluid rounded mt-2" style="max-height: 400px; width: auto;">
+                                }
+                            </a>
+                            
+                            @if (post.Event != null)
+                            {
+                                <div class="alert alert-info mt-2">
+                                    <strong>📅 Event:</strong> @post.Event.event_time.ToString("MMM dd, yyyy • h:mm tt")<br>
+                                    <strong>📍 Location:</strong> @post.Event.location
+                                </div>
+                            }
+                            
+                            <div class="mt-3">
+                                <span class="me-3">❤️ @post.LikeCount</span>
+                                <span class="me-3">💬 @post.CommentCount</span>
+                                <span class="me-3">🔄 @post.ReribbCount</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else if (ViewBag.ErrorMessage == null)
+            {
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle"></i> Нет постов для отображения
+                </div>
+            }
+        </div>
+        
+        <div class="col-md-4">
+            @await Html.PartialAsync("_TrendingTags", ViewBag.TrendingTags as List<SocialApp.Models.TrendingTag>)
+        </div>
+    </div>
+</div>

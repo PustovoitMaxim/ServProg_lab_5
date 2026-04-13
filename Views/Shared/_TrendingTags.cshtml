@@ -1,0 +1,26 @@
+<!-- Views/Shared/_TrendingTags.cshtml -->
+@model List<SocialApp.Models.TrendingTag>
+
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">🔥 Trending Ponds</h5>
+    </div>
+    <div class="card-body">
+        @if (Model != null && Model.Any())
+        {
+            <div class="list-group list-group-flush">
+                @foreach (var tag in Model)
+                {
+                    <a href="/ponds/posts/@tag.tag_name" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                        <span>#@tag.tag_name</span>
+                        <span class="badge bg-secondary rounded-pill">@tag.recent_posts posts</span>
+                    </a>
+                }
+            </div>
+        }
+        else
+        {
+            <p class="text-muted mb-0">No trending tags yet</p>
+        }
+    </div>
+</div>
